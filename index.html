@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafoenea - Grafología y Eneagrama</title>
+    <style>
+        /* Estilos Generales y Tipografía */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            margin-top: 0;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        /* Contenedor principal para centrar contenido */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Cabecera y Logo */
+        header {
+            background-color: #ffffff;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        header img {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Sección de Bienvenida */
+        .welcome {
+            background-color: #f3e9e5;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .welcome h2 {
+            font-size: 2.5rem;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #666;
+        }
+
+        /* Sección de Definiciones con Imágenes */
+        .definitions {
+            padding: 80px 0;
+            background-color: #ffffff;
+        }
+
+        .def-row {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-bottom: 80px;
+        }
+
+        .def-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .def-row.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .def-text {
+            flex: 1;
+        }
+
+        .def-text h2 {
+            font-size: 2.2rem;
+            color: #6a67ce;
+            margin-bottom: 1.5rem;
+        }
+
+        .def-text p {
+            font-size: 1.15rem;
+            color: #444;
+            text-align: justify;
+        }
+
+        .def-image {
+            flex: 1;
+        }
+
+        .def-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .def-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Sección de Servicios */
+        .services-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .services-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #4a4a4a;
+            margin-bottom: 50px;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        /* Tarjetas de Servicio Modificadas con Imágenes */
+        .service-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            flex: 1 1 calc(50% - 15px); 
+            max-width: calc(50% - 15px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid #8986ea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            overflow: hidden; /* Para que la imagen respete los bordes curvos de la tarjeta */
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 250px; /* Altura fija para que todas las fotos se vean iguales */
+            object-fit: cover; /* Asegura que la imagen llene el espacio sin deformarse */
+        }
+
+        .service-content {
+            padding: 30px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: #524fbd;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 0;
+        }
+
+        /* Pie de Página */
+        footer {
+            background-color: #333;
+            color: #f8f9fa;
+            text-align: center;
+            padding: 25px 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive: Ajustes para celulares y tablets */
+        @media (max-width: 992px) {
+            .def-row, .def-row.reverse {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+            .def-text p {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header img {
+                max-width: 90%;
+            }
+            .welcome h2 {
+                font-size: 2rem;
+            }
+            .service-card {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera -->
+    <header>
+        <div class="container">
+            <img src="image_5fd441.png" alt="Logo Grafoenea">
+        </div>
+    </header>
+
+    <!-- Sección de Bienvenida -->
+    <section class="welcome">
+        <div class="container">
+            <h2>¡Bienvenido a Grafoenea!</h2>
+            <p>
+                Te invitamos a explorar el profundo mundo del autoconocimiento y el crecimiento. Nuestra labor consiste en guiarte, a través de la Grafología y el Eneagrama, para que descubras tu verdadera esencia, tomes el control de tu futuro profesional, encuentres el talento que tu empresa necesita, o sanes y perfecciones tu escritura. Juntos, haremos un camino de transformación.
+            </p>
+        </div>
+    </section>
+
+    <!-- Sección de Definiciones Visuales -->
+    <section class="definitions">
+        <div class="container">
+            
+            <div class="def-row">
+                <div class="def-text">
+                    <h2>¿Qué es la Grafología?</h2>
+                    <p>
+                        La grafología es una técnica proyectiva y disciplina científica que se encarga del análisis e interpretación de la escritura manuscrita. A través de ella, podemos deducir la personalidad y el temperamento de un individuo, así como sus motivaciones más profundas, sus aptitudes naturales y posibles desequilibrios. Es una ventana directa al inconsciente.
+                    </p>
+                </div>
+                <div class="def-image">
+                    <img src="graf.png" alt="Análisis grafológico de una firma">
+                </div>
+            </div>
+
+            <div class="def-row reverse">
+                <div class="def-text">
+                    <h2>¿Qué es el Eneagrama?</h2>
+                    <p>
+                        El Eneagrama es un poderoso sistema de clasificación de la personalidad que describe nueve tipos básicos de carácter. Funciona como un mapa de autoconocimiento profundo que nos ayuda a comprender nuestros patrones de pensamiento, sentimiento y comportamiento, permitiéndonos identificar nuestras fortalezas y áreas de mejora para alcanzar nuestra mejor versión.
+                    </p>
+                </div>
+                <div class="def-image">
+                    <img src="enea.png" alt="Símbolo del Eneagrama con sus nueve eneatipos">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sección de Servicios con Imágenes -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="services-title">Nuestros Servicios</h2>
+            <div class="services-grid">
+                
+                <div class="service-card">
+                    <img src="autoc.png" alt="Autoconocimiento">
+                    <div class="service-content">
+                        <h3>Autoconocimiento</h3>
+                        <p>Informes de personalidad detallados para guiarte en tu camino de autoconocimiento y desarrollo personal.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <img src="orient.png" alt="Orientación Vocacional">
+                    <div class="service-content">
+                        <h3>Orientación Vocacional</h3>
+                        <p>Acompañamiento para que puedas elegir correctamente la carrera u oficio ideal para desarrollar tu futuro.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <img src="selec.png" alt="Selección de Personal">
+                    <div class="service-content">
+                        <h3>Selección de Personal</h3>
+                        <p>Análisis especializado destinado a comercios o empresas para encontrar los perfiles más adecuados.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <img src="reed.png" alt="Reeducación de la Escritura">
+                    <div class="service-content">
+                        <h3>Reeducación de la Escritura</h3>
+                        <p>Terapia destinada a trastornos de disgrafía, problemas motores, rehabilitación post-accidentes o simplemente para mejorar tu letra.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de Página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Grafoenea. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
