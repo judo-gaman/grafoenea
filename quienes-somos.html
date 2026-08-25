@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafoenea - ¿Quiénes Somos?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3 { font-weight: 600; margin-top: 0; }
+        p { margin-top: 0; margin-bottom: 1rem; font-weight: 300; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
+        .menu-btn { position: fixed; top: 20px; left: 20px; background-color: #1E6B7A; color: white; width: 45px; height: 45px; border-radius: 5px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; cursor: pointer; z-index: 2000; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .menu-btn span { display: block; width: 25px; height: 3px; background-color: white; border-radius: 2px; transition: 0.3s; }
+        .sidebar { position: fixed; top: 0; left: -300px; width: 300px; height: 100vh; background-color: #ffffff; box-shadow: 2px 0 15px rgba(0,0,0,0.1); z-index: 1500; transition: left 0.3s ease; padding-top: 90px; }
+        .sidebar.active { left: 0; }
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1400; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .sidebar-overlay.active { display: block; opacity: 1; }
+        .nav-links { list-style: none; padding: 0; margin: 0; }
+        .nav-links li a { display: block; padding: 15px 30px; font-size: 1.1rem; color: #4a4a4a; font-weight: 500; transition: background 0.3s, color 0.3s; }
+        .nav-links li a:hover { background-color: #EBF6F7; color: #1E6B7A; }
+        
+        header { background-color: #eff2f5; padding: 50px 0 30px 0; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        header img { max-width: 400px; width: 100%; height: auto; display: inline-block; mix-blend-mode: multiply; }
+
+        .page-section { padding: 80px 0; background-color: #ffffff; }
+        .section-title { text-align: center; font-size: 2.2rem; color: #1E6B7A; margin-bottom: 50px; }
+        .split-row { display: flex; align-items: center; gap: 50px; margin-bottom: 50px; }
+        .split-text { flex: 1; font-size: 1.1rem; color: #444; text-align: justify; }
+        .split-image { flex: 1; text-align: center; }
+        .split-image img { width: 100%; max-width: 500px; height: auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        
+        .book-section { background-color: #EBF6F7; padding: 40px; border-radius: 15px; margin-top: 40px; }
+        .book-section h3 { color: #114552; font-size: 1.8rem; margin-bottom: 20px;}
+
+        .book-summary { text-align: center; margin-top: 20px; font-weight: 500; color: #1E6B7A; }
+        .book-summary .summary-line { display: inline-block; font-size: 1rem; }
+        .book-summary em { font-weight: 300; font-size: 1rem; display: block; margin-top: 5px; color: #1E6B7A; }
+
+        footer { background-color: #333; color: #f8f9fa; text-align: center; padding: 25px 0; font-size: 0.9rem; }
+        
+        .whatsapp-btn { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background-color: #1E6B7A; border-radius: 50%; box-shadow: 0 6px 15px rgba(0,0,0,0.2); z-index: 1000; transition: transform 0.3s ease, background-color 0.3s ease; display: flex; justify-content: center; align-items: center; }
+        .whatsapp-btn:hover { transform: scale(1.1); background-color: #114552; }
+        .whatsapp-btn svg { width: 36px; height: 36px; fill: white; display: block; }
+
+        @media (min-width: 992px) { .book-summary .summary-line { white-space: nowrap; font-size: 1.05rem; } }
+        
+        /* MULTIDISPOSITIVOS */
+        @media (max-width: 992px) { 
+            .split-row { flex-direction: column; gap: 30px; } 
+        }
+        @media (max-width: 768px) { 
+            header { padding: 80px 0 20px 0; }
+            header img { max-width: 250px; } 
+            .page-section { padding: 50px 0; }
+            .section-title { font-size: 1.8rem; margin-bottom: 30px; }
+            .split-text { font-size: 1rem; }
+            .book-section { padding: 25px 15px; }
+            .book-section h3 { font-size: 1.5rem; text-align: center; }
+            .whatsapp-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; } 
+            .whatsapp-btn svg { width: 30px; height: 30px; } 
+        }
+    </style>
+</head>
+<body>
+
+    <button class="menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <nav class="sidebar" id="sidebar">
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="quienes-somos.html">¿Quiénes somos?</a></li>
+            <li><a href="talleres.html">Talleres</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <header><div class="container"><a href="index.html"><img src="logo.png" alt="Logo Grafoenea"></a></div></header>
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title">Acerca de Mí</h2>
+            
+            <div class="split-row">
+                <div class="split-text">
+                    <p><strong style="font-weight: 500;">Mi nombre es Claudia Aboal.</strong></p>
+                    <p>Soy Técnica Superior en Grafología con Título Oficial N.º 131273, especializada en Informes de Personalidad, Análisis de Firmas, Orientación Vocacional, Reeducación de la Escritura y Grafoterapia.</p>
+                    <p>Además, me he especializado en Grafología Física-Matemática, Coaching Vocacional, Mindfulness y Estimulación de la memoria y las funciones cognitivas en adultos, integrando herramientas que favorecen el autoconocimiento, el bienestar emocional y el fortalecimiento de las capacidades cognitivas.</p>
+                    <p>A lo largo de mi trayectoria he realizado numerosas capacitaciones y formaciones complementarias que enriquecen mi práctica profesional y me permiten ofrecer un abordaje integral, adaptado a las necesidades de cada persona.</p>
+                    <p>Mi propósito es acompañarte en tu proceso de crecimiento personal, ayudándote a descubrir tus fortalezas, comprender mejor tus recursos internos y potenciar tus capacidades para alcanzar una mayor calidad de vida.</p>
+                    <p>En Grafoenea encontrarás un espacio de escucha, orientación y desarrollo, donde trabajaremos juntos desde el respeto, la calidez humana y el compromiso con tu bienestar. <strong style="font-weight: 500;">¡Te espero!</strong></p>
+                </div>
+                <div class="split-image">
+                    <img src="claudia.png" alt="Claudia Aboal">
+                </div>
+            </div>
+
+            <div class="book-section">
+                <h3>Libro "Entrena tu Cerebro"</h3>
+                <p><strong style="font-weight: 500;">ENTRENA TU CEREBRO</strong> es un programa de 30 sesiones de entrenamiento cognitivo, pensadas para realizar de manera sencilla y progresiva.</p>
+                
+                <p><strong style="font-weight: 500;">Cada sesión propone diferentes desafíos para trabajar:</strong><br>
+                🧠 Memoria | 👀 Atención y concentración | 🔎 Percepción visual | 🔢 Razonamiento y lógica | 🔄 Flexibilidad mental | ⚡ Agilidad mental | ✏️ Asociación y evocación</p>
+                
+                <p><strong style="font-weight: 500;">¿Cuánto tiempo necesitás?</strong><br>
+                Solo entre 15 y 30 minutos por sesión. La propuesta es realizar una sesión cada vez que te toque entrenar, sin necesidad de dedicarle grandes cantidades de tiempo. Para incorporar el entrenamiento a tu rutina, lo ideal es realizarlo 3 veces por semana, de manera sostenida.</p>
+                
+                <p><strong style="font-weight: 500;">¿Qué vas a encontrar en las 30 sesiones?</strong><br>
+                Ejercicios variados y diferentes desafíos para que cada sesión sea una nueva oportunidad de recordar, observar, asociar, encontrar, resolver y pensar. Las actividades están organizadas para que puedas avanzar a tu propio ritmo y mantener la mente activa de una manera entretenida.</p>
+                
+                <p><strong style="font-weight: 500;">¿Digital o impreso?</strong><br>
+                📱 <em>Versión digital:</em> recibís el material en PDF y podés utilizarlo desde tu computadora, tablet o celular.<br>
+                🖨️ <em>Versión imprimible:</em> podés imprimir vos mismo las sesiones o bien comprarlo impreso y resolver en papel.</p>
+                
+                <p><strong style="font-weight: 500;">¿Para quién es?</strong><br>
+                Para adultos que quieren incorporar el entrenamiento mental a su rutina, mantenerse activos y dedicar unos minutos de la semana a ejercitar diferentes capacidades. No necesitás conocimientos previos. Solo ganas de empezar.</p>
+                
+                <div class="book-summary">
+                    <span class="summary-line">Tu entrenamiento empieza acá: 30 sesiones · 15–30 minutos · 3 veces por semana · 240 páginas · 4 Bonus adicionales</span>
+                    <em>Un programa sencillo para convertir el entrenamiento mental en un hábito.</em>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer><div class="container"><p>&copy; 2026 Grafoenea. Todos los derechos reservados.</p></div></footer>
+    
+    <a href="https://wa.me/5491156338076?text=Hola!%20Quiero%20mas%20informacion" class="whatsapp-btn" target="_blank">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+    </a>
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        function toggleMenu() { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); }
+        menuBtn.addEventListener('click', toggleMenu); overlay.addEventListener('click', toggleMenu);
+    </script>
+</body>
+</html>

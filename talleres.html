@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafoenea - Talleres</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3 { font-weight: 600; margin-top: 0; }
+        p { margin-top: 0; margin-bottom: 1rem; font-weight: 300; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Menú y Header */
+        .menu-btn { position: fixed; top: 20px; left: 20px; background-color: #1E6B7A; color: white; width: 45px; height: 45px; border-radius: 5px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; cursor: pointer; z-index: 2000; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .menu-btn span { display: block; width: 25px; height: 3px; background-color: white; border-radius: 2px; transition: 0.3s; }
+        .sidebar { position: fixed; top: 0; left: -300px; width: 300px; height: 100vh; background-color: #ffffff; box-shadow: 2px 0 15px rgba(0,0,0,0.1); z-index: 1500; transition: left 0.3s ease; padding-top: 90px; }
+        .sidebar.active { left: 0; }
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1400; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .sidebar-overlay.active { display: block; opacity: 1; }
+        .nav-links { list-style: none; padding: 0; margin: 0; }
+        .nav-links li a { display: block; padding: 15px 30px; font-size: 1.1rem; color: #4a4a4a; font-weight: 500; transition: background 0.3s, color 0.3s; }
+        .nav-links li a:hover { background-color: #EBF6F7; color: #1E6B7A; }
+        
+        header { background-color: #eff2f5; padding: 50px 0 30px 0; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        header img { max-width: 400px; width: 100%; height: auto; display: inline-block; mix-blend-mode: multiply; }
+
+        /* Estilos de la sección Talleres */
+        .page-section { padding: 80px 0; background-color: #ffffff; min-height: 70vh; }
+        .section-title { text-align: center; font-size: 2.2rem; color: #1E6B7A; margin-bottom: 60px; }
+        .split-row { display: flex; align-items: flex-start; gap: 60px; }
+        
+        /* Ajustes de armonía para el texto de la izquierda */
+        .split-text { flex: 1; position: sticky; top: 100px; }
+        .intro-text { font-size: 1.1rem; color: #555; margin-bottom: 30px; line-height: 1.8; text-align: left; }
+        
+        .workshop-list { list-style: none; padding: 0; margin: 0 0 30px 0; }
+        .workshop-list li { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; font-size: 1.05rem; color: #444; line-height: 1.7; text-align: left; }
+        .workshop-list li .emoji { font-size: 1.4rem; line-height: 1.4; flex-shrink: 0; }
+        
+        .closing-text { font-size: 1.05rem; color: #555; margin-bottom: 25px; line-height: 1.8; }
+        .modality { font-size: 1.1rem; color: #333; display: flex; align-items: center; gap: 10px; margin-bottom: 30px; }
+
+        /* Banner de WhatsApp */
+        .cta-banner { display: inline-flex; align-items: center; justify-content: center; background-color: #3AB1C8; color: white; padding: 15px 25px; border-radius: 10px; font-weight: 600; font-size: 1rem; transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s; box-shadow: 0 5px 15px rgba(58, 177, 200, 0.3); text-decoration: none; white-space: nowrap; max-width: 100%; }
+        .cta-banner:hover { transform: translateY(-3px); background-color: #1E6B7A; box-shadow: 0 8px 20px rgba(30, 107, 122, 0.4); color: white; }
+        .cta-banner svg { flex-shrink: 0; width: 22px; height: 22px; fill: white; margin-right: 12px; }
+
+        /* Ajustes para la columna derecha con las 4 imágenes */
+        .split-image { flex: 1; }
+        .workshops-stack { display: flex; flex-direction: column; gap: 25px; }
+        .workshops-stack img { width: 100%; max-width: 550px; height: auto; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; margin: 0 auto; display: block; }
+        .workshops-stack img:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
+
+        footer { background-color: #333; color: #f8f9fa; text-align: center; padding: 25px 0; font-size: 0.9rem; }
+        
+        .whatsapp-btn { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background-color: #1E6B7A; border-radius: 50%; box-shadow: 0 6px 15px rgba(0,0,0,0.2); z-index: 1000; transition: transform 0.3s ease, background-color 0.3s ease; display: flex; justify-content: center; align-items: center; }
+        .whatsapp-btn:hover { transform: scale(1.1); background-color: #114552; }
+        .whatsapp-btn svg { width: 36px; height: 36px; fill: white; display: block; }
+
+        /* MULTIDISPOSITIVOS */
+        @media (max-width: 992px) { 
+            .split-row { flex-direction: column; gap: 40px; } 
+            .split-text { position: static; text-align: center; }
+            .intro-text, .closing-text { text-align: center; } 
+            .modality { justify-content: center; }
+            /* En tablets/celulares, si el banner es muy largo, dejamos que baje a dos líneas ordenadas */
+            .cta-banner { white-space: normal; text-align: center; line-height: 1.4; padding: 15px 20px; } 
+        }
+        @media (max-width: 768px) { 
+            header { padding: 80px 0 20px 0; }
+            header img { max-width: 250px; } 
+            .page-section { padding: 40px 0; }
+            .section-title { font-size: 1.8rem; margin-bottom: 30px; }
+            .whatsapp-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; } 
+            .whatsapp-btn svg { width: 30px; height: 30px; } 
+            .workshops-stack gap { gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <nav class="sidebar" id="sidebar">
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="quienes-somos.html">¿Quiénes somos?</a></li>
+            <li><a href="talleres.html">Talleres</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <header><div class="container"><a href="index.html"><img src="logo.png" alt="Logo Grafoenea"></a></div></header>
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="section-title">Talleres y Espacios de Desarrollo</h2>
+            
+            <div class="split-row">
+                <!-- Columna Izquierda: Texto y Botón -->
+                <div class="split-text">
+                    <p class="intro-text">En Grafoenea encontrarás distintas propuestas orientadas al autoconocimiento, el bienestar y el desarrollo personal.</p>
+                    
+                    <ul class="workshop-list">
+                        <li>
+                            <span class="emoji">🧠</span>
+                            <div><strong style="font-weight: 600;">Talleres de Estimulación de la Memoria y las Funciones Cognitivas:</strong> especialmente diseñados para adultos y adultos mayores que desean mantener su mente activa, fortalecer la memoria y mejorar su calidad de vida.</div>
+                        </li>
+                        <li>
+                            <span class="emoji">✍️</span>
+                            <div><strong style="font-weight: 600;">Grafología:</strong> análisis de personalidad, firmas y autoconocimiento.</div>
+                        </li>
+                        <li>
+                            <span class="emoji">🎓</span>
+                            <div><strong style="font-weight: 600;">Orientación Vocacional:</strong> acompañamiento para descubrir intereses, aptitudes y proyectos de vida.</div>
+                        </li>
+                        <li>
+                            <span class="emoji">🧘</span>
+                            <div><strong style="font-weight: 600;">Mindfulness:</strong> herramientas para cultivar la atención plena y el bienestar emocional.</div>
+                        </li>
+                    </ul>
+                    
+                    <p class="closing-text">Cada propuesta está diseñada para responder a necesidades específicas y acompañarte en tu crecimiento personal.</p>
+                    <p class="modality"><span class="emoji">📍</span> <strong style="font-weight: 600;">Modalidad presencial y online.</strong></p>
+
+                    <div>
+                        <a href="https://wa.me/5491156338076?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20talleres" class="cta-banner" target="_blank" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                            <span>Hace click aquí para más información de nuestros talleres</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Columna Derecha: Stack de las 4 Imágenes (.png) -->
+                <div class="split-image workshops-stack">
+                    <img src="t1.png" alt="Talleres de Estimulación de la Memoria">
+                    <img src="t2.png" alt="Grafología">
+                    <img src="t3.png" alt="Orientación Vocacional">
+                    <img src="t4.png" alt="Mindfulness">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer><div class="container"><p>&copy; 2026 Grafoenea. Todos los derechos reservados.</p></div></footer>
+    
+    <a href="https://wa.me/5491156338076?text=Hola!%20Quiero%20mas%20informacion" class="whatsapp-btn" target="_blank">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+    </a>
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        function toggleMenu() { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); }
+        menuBtn.addEventListener('click', toggleMenu); overlay.addEventListener('click', toggleMenu);
+    </script>
+</body>
+</html>
